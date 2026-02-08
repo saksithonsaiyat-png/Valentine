@@ -132,7 +132,7 @@
         <div class="glass-card p-6 w-full max-w-sm text-center flex flex-col items-center stagger-in">
             <div class="mb-4"><div class="w-16 h-16 bg-gradient-to-br from-rose-400 to-rose-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg mb-2"><i data-lucide="lock" class="text-white w-8 h-8"></i></div></div>
             <h2 class="text-xl font-bold text-rose-800 mb-1">กรอกรหัสผ่าน</h2>
-            <p class="text-xs text-rose-500 mb-6 bg-rose-50 px-3 py-1 rounded-full border border-rose-100">คำใบ้ : รหัสคือ 180868</p>
+            <p class="text-xs text-rose-500 mb-6 bg-rose-50 px-3 py-1 rounded-full border border-rose-100">คำใบ้ : รหัสคือ 180825</p>
             <div id="dots-container" class="flex gap-3 mb-8 justify-center">
                 <div class="w-10 h-12 border-2 border-rose-200 rounded-xl flex items-center justify-center text-xl font-bold text-rose-600 bg-white/80 transition-all duration-200" id="digit-0"></div>
                 <div class="w-10 h-12 border-2 border-rose-200 rounded-xl flex items-center justify-center text-xl font-bold text-rose-600 bg-white/80 transition-all duration-200" id="digit-1"></div>
@@ -166,8 +166,8 @@
             <p class="text-rose-500 text-sm mb-6 bg-white/50 px-4 py-1 rounded-full">ขูดการ์ดเพื่อดูรูปภาพ</p>
             <div class="relative w-64 h-72 rounded-2xl overflow-hidden shadow-xl bg-white mb-6 ring-4 ring-white/50">
                 <div class="absolute inset-0 flex flex-col items-center justify-center bg-rose-50">
-                    <!-- 🟢 แก้ไขรูปที่ซ่อนอยู่ (Scratch Card) ตรงนี้ -->
-                    <img src="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover opacity-90" alt="Couple">
+                    <!-- รูป ff.jpg ตามที่ขอ -->
+                    <img src="ff.jpg" class="w-full h-full object-cover opacity-90" alt="Couple">
                     <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/20 p-4">
                         <div class="bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg transform rotate-[-2deg]">
                             <h3 class="text-rose-600 font-bold text-lg">Happy Valentine's Day</h3>
@@ -312,7 +312,8 @@
             <div id="camera-view" class="w-64 h-80 bg-gray-800 rounded-lg relative flex items-center justify-center overflow-hidden mb-8 border-[6px] border-white shadow-xl ring-1 ring-gray-200">
                 <div class="text-center group"><i data-lucide="camera" class="w-12 h-12 text-gray-500 mx-auto mb-2 group-hover:text-white transition-colors"></i><p class="text-gray-500 text-xs">Lens View</p></div>
                 <div id="shutter-flash" class="absolute inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-150 z-20"></div>
-                <img id="polaroid-result" src="https://images.unsplash.com/photo-1529634597503-139d3726d515?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" class="absolute inset-0 w-full h-full object-cover hidden z-10 transition-transform duration-[5s] hover:scale-110">
+                <!-- รูปโพลารอยด์ pl.jpg -->
+                <img id="polaroid-result" src="pl.jpg" class="absolute inset-0 w-full h-full object-cover hidden z-10 transition-transform duration-[5s] hover:scale-110">
                  <div class="absolute bottom-4 left-0 w-full text-center z-10 pointer-events-none"><p class="text-white/80 text-[10px] tracking-widest font-light drop-shadow-md hidden" id="polaroid-date">VALENTINE 2025</p></div>
             </div>
             <button id="btn-snap" onclick="takePhoto()" class="btn-primary w-16 h-16 rounded-full font-bold shadow-lg flex items-center justify-center border-4 border-rose-200 active:border-rose-400 transition-all mb-4"><i data-lucide="aperture" class="w-8 h-8"></i></button>
@@ -333,7 +334,6 @@
                 <div class="absolute inset-10 rounded-full border border-gray-800 opacity-50"></div>
                 <div class="absolute inset-14 rounded-full border border-gray-800 opacity-50"></div>
                 <div class="w-28 h-28 rounded-full bg-rose-200 overflow-hidden border-4 border-zinc-800 relative z-10">
-                    <!-- 🟢 แก้ไขปกเพลง (Vinyl Cover) ตรงนี้ -->
                     <img src="https://images.unsplash.com/photo-1516280440614-6697288d5d38?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover">
                 </div>
             </div>
@@ -341,8 +341,8 @@
                 <div class="flex items-center justify-center gap-2 mb-2"><span class="w-1 h-4 bg-rose-400 rounded-full animate-[bounce_1s_infinite]"></span><span class="w-1 h-6 bg-rose-500 rounded-full animate-[bounce_1.2s_infinite]"></span><span class="w-1 h-3 bg-rose-400 rounded-full animate-[bounce_0.8s_infinite]"></span></div>
                 <p class="text-xs text-gray-600 leading-relaxed italic">"เพลงนี้อาจไม่ได้พิเศษสำหรับใคร <br>แต่สำหรับเรามันคือความรู้สึกที่มีให้เธอ"</p>
             </div>
-            <!-- 🟢 แก้ไขลิงก์ YouTube ตรงนี้ (href) -->
-            <a href="https://www.youtube.com/watch?v=k-VdXXu8VqQ" target="_blank" onclick="playMusicState()" class="btn-primary w-full py-3 rounded-full font-bold shadow-lg mb-2 flex items-center justify-center gap-2 hover:scale-105 transition-transform"><i data-lucide="play-circle" class="w-5 h-5"></i> เปิดเพลงนี้บน YouTube</a>
+            <!-- แก้ลิงก์เพลง -->
+            <a href="https://youtu.be/n5Il-STC6KU?si=T3BOxZp_oJwf3Wjt" target="_blank" onclick="playMusicState()" class="btn-primary w-full py-3 rounded-full font-bold shadow-lg mb-2 flex items-center justify-center gap-2 hover:scale-105 transition-transform"><i data-lucide="play-circle" class="w-5 h-5"></i> เปิดเพลงนี้บน YouTube</a>
             <button onclick="navigateTo('page-menu')" class="bg-white text-rose-500 w-full py-2 rounded-full text-sm font-bold shadow-sm hover:bg-rose-50">กลับไปหน้าเมนู</button>
         </div>
     </div>
@@ -383,7 +383,7 @@
 
         // --- PASSCODE ---
         let currentPasscode = "";
-        const correctPasscode = "180868"; // 🟢 แก้ไขรหัสผ่านที่นี่
+        const correctPasscode = "180825"; // แก้รหัสผ่านเป็น 180825
         function enterDigit(digit) {
             if (currentPasscode.length < 6) {
                 currentPasscode += digit; updatePasscodeUI();
@@ -440,13 +440,13 @@
             canvas.addEventListener('touchend', () => isDrawing = false);
         }
 
-        // --- MEMORIES (แก้ไขความทรงจำที่นี่) ---
-        // 🟢🟢🟢 แก้ไขรูปและข้อความหน้าความทรงจำที่นี่ 🟢🟢🟢
+        // --- MEMORIES ---
+        // เรียงรูป 1.jpg - 4.jpg
         const memories = [
             { 
                 img: '1.jpg', 
                 title: 'วันแรกที่รู้จักกัน', 
-                desc: 'เราเดินเอาลูกอมไปให้เธอเลยได้คุยกันนิดหน่อย แล้วหลังจากนั้นไม่นานเราก็ทักไปจีบเธอ' 
+                desc: 'เราเดินเอาลูกอมไปให้เธอเลยได้คุยกันนิดหน่อย แล้วหลังจากนั้นไม่นานเราก็ทักไปจีบเธออออ' 
             },
             { 
                 img: '2.jpg', 
@@ -454,24 +454,22 @@
                 desc: ' ทุกอย่างยังชัดเจนเสมอเหมือนวันแรกที่เราคบกัน💗' 
             },
             { 
-              // ___ img: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80', 
-                title: 'ทริปแรก', 
-                desc: '' ___ // 
+                img: '3.jpg', 
+                /* title: 'ทริปแรก', 
+                desc: 'ทริปแรกของเรา เต็มไปด้วยความสุขและความทรงจำ' */
             },
             { 
-                img: '3.jpg', 
+                img: '4.jpg', 
                 title: 'วันนี้และตลอดไป', 
                 desc: 'ไม่ว่าผ่านไปนานแค่ไหน ก็ยังอยากมีเธออยู่แบบนี้ทุกวัน' 
             }
         ];
-        // 🟢🟢🟢 จบการแก้ไขความทรงจำ 🟢🟢🟢
 
         let currentMemIndex = 0;
         function loadMemory(index) {
             const imgEl = document.getElementById('memory-img'); const titleEl = document.getElementById('memory-title'); const descEl = document.getElementById('memory-desc');
             const dotsContainer = document.getElementById('memory-dots');
             
-            // Render Dots
             dotsContainer.innerHTML = '';
             memories.forEach((_, i) => {
                 const dot = document.createElement('div');
@@ -494,11 +492,11 @@
 
         // --- QUIZ ---
         const questions = [
-            { q: "เราเจอกันครั้งแรกที่ไหน?", a: "ร้านกาแฟ", options: ["มหาวิทยาลัย", "ร้านกาแฟ", "ออนไลน์", "งานเลี้ยง"] },
-            { q: "อาหารที่เธอชอบกินที่สุดคือ?", a: "ชาบู", options: ["ซูชิ", "ส้มตำ", "ชาบู", "พิซซ่า"] },
-            { q: "สีที่เธอชอบคือ?", a: "ชมพู", options: ["ฟ้า", "ชมพู", "ขาว", "ดำ"] },
+            { q: "เราเจอกันครั้งแรกที่ไหน?", a: "วิทยาลัย", options: ["วิทยาลัย", "ร้านกาแฟ", "ออนไลน์", "งานเลี้ยง"] },
+            { q: "ของที่เธอชอบที่สุด?", a: "มาม่า", options: ["ซูชิ", "ส้มตำ", "ชาบู", "มาม่า"] },
+            { q: "น้ำที่เธอชอบ?", a: "น้ำแดง", options: ["โค้ก", "ชาเขียว", "น้ำแดง", "โกโก้"] },
             { q: "วันครบรอบของเราคือ?", a: "18 ส.ค.", options: ["14 ก.พ.", "18 ส.ค.", "1 ม.ค.", "25 ธ.ค."] },
-            { q: "รักเราแค่ไหน?", a: "ที่สุดในโลก", options: ["เฉยๆ", "นิดนึง", "ที่สุดในโลก", "ไม่บอก"] }
+            { q: "รักเราแค่ไหน?", a: "*", options: ["เฉยๆ", "นิดนึง", "ที่สุดในโลก", "ไม่บอก"] } // * หมายถึงถูกทุกข้อ
         ];
         let quizIndex = 0; let score = 0;
         function resetQuiz() { quizIndex = 0; score = 0; document.getElementById('quiz-result').classList.remove('flex'); document.getElementById('quiz-result').classList.add('hidden'); loadQuestion(); }
@@ -516,7 +514,11 @@
                 optionsDiv.appendChild(btn);
             });
         }
-        function checkAnswer(selected, correct) { if(selected === correct) score++; quizIndex++; loadQuestion(); }
+        function checkAnswer(selected, correct) { 
+            // เช็คว่าคำตอบถูก หรือถ้าเป็นข้อฟรี (*) ก็ให้ถูกเลย
+            if(correct === "*" || selected === correct) score++; 
+            quizIndex++; loadQuestion(); 
+        }
         function showQuizResult() {
             document.getElementById('quiz-score-display').innerText = score;
             const msg = document.getElementById('quiz-msg');
@@ -526,7 +528,7 @@
         }
 
         // --- TIMER ---
-        const startDate = new Date('2024-08-18T00:00:00'); // 🟢 แก้ไขวันที่เริ่มคบ (YYYY-MM-DD)
+        const startDate = new Date('2025-08-18T00:00:00'); // แก้เป็นปี 2025
         let timerInterval;
         function startTimer() { if(timerInterval) clearInterval(timerInterval); updateTimerDisplay(); timerInterval = setInterval(updateTimerDisplay, 1000); }
         function updateTimerDisplay() {
