@@ -169,9 +169,21 @@
             to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
 
+        .sound-hint {
+            display: block;
+            margin-top: 0.8rem;
+            color: rgba(255, 209, 228, 0.7);
+            font-size: clamp(0.72rem, 2vw, 0.88rem);
+            letter-spacing: 0.08em;
+            text-shadow: 0 0 10px rgba(255, 79, 154, 0.45);
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 4.55s;
+        }
+
         .final-message {
             position: fixed;
-            bottom: clamp(1.5rem, 5vw, 3rem);
+            bottom: clamp(0.8rem, 3vh, 2rem);
             left: 50%;
             width: min(90vw, 620px);
             color: #ffe0ec;
@@ -212,6 +224,7 @@
             <p class="line"><span class="typewriter">[system] initializing heart.PROTOCOL v2.0...</span></p>
             <p class="line fade-line">&gt; One encrypted package bound for you.</p>
             <button class="decrypt-button" id="decryptButton" type="button">DECRYPT MESSAGE</button>
+            <span class="sound-hint" id="soundHint">sound effects armed ♡</span>
         </section>
     </main>
 
@@ -225,8 +238,80 @@
         const terminal = document.getElementById('terminal');
         const heart = document.getElementById('heart');
         const finalMessage = document.getElementById('finalMessage');
+        const soundHint = document.getElementById('soundHint');
+        let audioContext;
+        let masterGain;
 
-        function createHeart() {
+        function setupAudio() {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) {
+                soundHint.textContent = 'visual mode active ♡';
+                return false;
+            }
+
+            if (!audioContext) {
+                audioContext = new AudioContext();
+                masterGain = audioContext.createGain();
+                masterGain.gain.value = 0.16;
+                masterGain.connect(audioContext.destination);
+            }
+
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            return true;
+        }
+
+        function playTone(frequency, startTime, duration, type = 'sine', volume = 0.18) {
+            if (!audioContext || !masterGain) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, startTime);
+            gain.gain.setValueAtTime(0.0001, startTime);
+            gain.gain.exponentialRampToValueAtTime(volume, startTime + 0.025);
+            gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+            oscillator.connect(gain);
+            gain.connect(masterGain);
+            oscillator.start(startTime);
+            oscillator.stop(startTime + duration + 0.04);
+        }
+
+        function playDecryptSound() {
+            if (!setupAudio()) return;
+
+            const now = audioContext.currentTime;
+            [392, 494, 659, 988].forEach((note, index) => {
+                playTone(note, now + index * 0.07, 0.12, 'triangle', 0.13);
+            });
+            playTone(1568, now + 0.34, 0.18, 'sine', 0.1);
+        }
+
+        function playHeartMelody() {
+            if (!audioContext || !masterGain) return;
+
+            const now = audioContext.currentTime + 0.05;
+            const melody = [523.25, 659.25, 783.99, 1046.5, 987.77, 783.99, 880, 1046.5];
+            melody.forEach((note, index) => {
+                playTone(note, now + index * 0.16, 0.22, 'sine', 0.11);
+            });
+
+            playTone(261.63, now, 1.55, 'triangle', 0.045);
+            playTone(392, now + 0.32, 1.25, 'triangle', 0.04);
+        }
+
+        function playHeartbeatPop() {
+            if (!audioContext || !masterGain) return;
+
+            const now = audioContext.currentTime;
+            playTone(220, now, 0.09, 'sine', 0.16);
+            playTone(330, now + 0.13, 0.13, 'sine', 0.12);
+            playTone(880, now + 0.28, 0.24, 'triangle', 0.08);
+        }
+
+        function createHeart(playSound = true) {
             heart.innerHTML = '';
             heart.classList.add('visible');
             heart.classList.remove('beating');
@@ -235,14 +320,24 @@
             const rect = heart.getBoundingClientRect();
             const scale = Math.min(rect.width / 38, rect.height / 34);
             const centerX = rect.width / 2;
-            const centerY = rect.height / 2 + scale * 1.7;
-            const fragment = document.createDocumentFragment();
+            const points = [];
+            let minY = Infinity;
+            let maxY = -Infinity;
 
             for (let i = 0; i < particleCount; i++) {
-                // สมการคณิตศาสตร์ Parametric Equation สร้างรูปหัวใจ
                 const t = (Math.PI * 2 * i) / particleCount;
                 const x = 16 * Math.pow(Math.sin(t), 3);
                 const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+                minY = Math.min(minY, y);
+                maxY = Math.max(maxY, y);
+                points.push({ x, y });
+            }
+
+            const visualCenterY = (minY + maxY) / 2;
+            const centerY = rect.height / 2 + visualCenterY * scale;
+            const fragment = document.createDocumentFragment();
+
+            points.forEach(({ x, y }, i) => {
                 const particle = document.createElement('span');
 
                 particle.className = 'love-particle';
@@ -252,28 +347,30 @@
                 particle.style.animationDelay = `${i * 24}ms`;
                 particle.style.color = i % 3 === 0 ? '#ffffff' : i % 3 === 1 ? '#ffd1e4' : '#ff8fbd';
                 fragment.appendChild(particle);
-            }
+            });
 
             heart.appendChild(fragment);
+            if (playSound) playHeartMelody();
 
             window.setTimeout(() => {
                 heart.classList.add('beating');
                 finalMessage.classList.add('visible');
+                if (playSound) playHeartbeatPop();
             }, particleCount * 24 + 750);
         }
 
         button.addEventListener('click', () => {
             button.disabled = true;
+            playDecryptSound();
             terminal.classList.add('decrypting');
-            window.setTimeout(createHeart, 850);
+            window.setTimeout(() => createHeart(true), 850);
         });
 
-        // สร้างหัวใจใหม่เมื่อมีการ Resize หน้าจอ เพื่อให้จัดตำแหน่งตรงกลางเสมอ
         let resizeTimer;
         window.addEventListener('resize', () => {
             if (!heart.classList.contains('visible')) return;
             window.clearTimeout(resizeTimer);
-            resizeTimer = window.setTimeout(createHeart, 180);
+            resizeTimer = window.setTimeout(() => createHeart(false), 180);
         });
     </script>
 </body>
